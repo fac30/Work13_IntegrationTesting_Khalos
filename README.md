@@ -107,6 +107,78 @@ Future Improvements
 Add more advanced error handling for edge cases.
 Improve the UI for better user interaction.
 Expand the test cases to cover floating-point operations and invalid inputs like null or undefined.
+
+
+To test the calculator form in workshop/index.html as requested, we need to simulate a user filling out the form, submitting it, and then verify that the output is correct on the page. Here's how we can do that:
+
+Updated index.test.js
+```javascript
+test("Correctly calculates the result and updates the page", () => {
+  // Step 1: Select the inputs and form elements
+  const inputA = document.querySelector("input[name='a']");
+  const inputB = document.querySelector("input[name='b']");
+  const selectSign = document.querySelector("select[name='sign']");
+  const submitButton = document.querySelector("button[type='submit']");
+  const result = document.querySelector("#result");
+
+  // Step 2: Set values for the inputs
+  inputA.value = "10";
+  inputB.value = "5";
+  selectSign.value = "+"; // Choose the "+" operator
+
+  // Step 3: Trigger the form submission
+  submitButton.click();
+
+  // Step 4: Verify that the result is correct
+  equal(result.textContent, "15", "10 + 5 should result in 15");
+
+  // Reset the result content for other tests
+  result.textContent = "";
+});
+```
+
+Explanation of the Test:
+Step 1: We use document.querySelector() to grab the elements of the form:
+
+inputA and inputB for the numbers.
+selectSign for the operation (+, -, *, /).
+submitButton for the form submit button.
+result where the output will be displayed after form submission.
+Step 2: We simulate user input by setting the values of the form elements. For this test, we set a to "10", b to "5", and the sign to "+".
+
+Step 3: We simulate a user submitting the form by calling submitButton.click().
+
+Step 4: After the form is submitted, we check if the result in the output field (#result) is "15" (because 10 + 5 should equal 15).
+
+Reset: Finally, we reset the result content so that it does not interfere with other tests.
+
+Running the Test
+Open index.html in your browser.
+Check the Console in the browser’s Developer Tools to see the test result (Pass or Fail).
+
+How to Add More Tests
+You can add more tests to cover other operations (subtraction, multiplication, division), similar to how the addition test works:
+
+```javascript
+test("Correctly calculates subtraction", () => {
+  const inputA = document.querySelector("input[name='a']");
+  const inputB = document.querySelector("input[name='b']");
+  const selectSign = document.querySelector("select[name='sign']");
+  const submitButton = document.querySelector("button[type='submit']");
+  const result = document.querySelector("#result");
+
+  inputA.value = "10";
+  inputB.value = "5";
+  selectSign.value = "-"; // Choose the "-" operator
+  submitButton.click();
+  equal(result.textContent, "5", "10 - 5 should result in 5");
+
+  result.textContent = ""; // Reset result for the next test
+});
+```
+You can repeat this pattern for multiplication (*) and division (/).
+
+
 License
 This project is open-source and available for improvement and customization.
 
