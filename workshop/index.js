@@ -4,15 +4,24 @@ const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
 function calculate(a, sign, b) {
+  // Parse input into numbers (if possible)
+  const numA = parseFloat(a);
+  const numB = parseFloat(b);
+
+  // If either value is not a valid number, return undefined
+  if (Number.isNaN(numA) || Number.isNaN(numB)) {
+    return undefined;
+  }
+
   switch (sign) {
     case "+":
-      return add(a, b);
+      return add(numA, numB);
     case "-":
-      return subtract(a, b);
+      return subtract(numA, numB);
     case "*":
-      return multiply(a, b);
+      return multiply(numA, numB);
     case "/":
-      return divide(a, b);
+      return divide(numA, numB);
     default:
       return "Please enter a valid sign (+, -, *, /)";
   }
